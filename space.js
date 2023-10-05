@@ -12,7 +12,7 @@ let shipHeight = tileSize * 2; //added*2
 let shipX = (tileSize * columns) / 2 - tileSize * 2;
 let shipY = tileSize * rows - tileSize; //* 2;
 let shipImg;
-let shipVelocity = tileSize; //one tile change
+let shipVelocityX = tileSize; //one tile change
 
 //ship object
 let ship = {
@@ -33,4 +33,21 @@ window.onload = function () {
   shipImg.onload = function () {
     context.drawImage(shipImg, ship.x, ship.y, ship.height, ship.width);
   };
+  requestAnimationFrame(update);
+  document.addEventListener(`keydown`, moveShip(e));
+  //console.log(e.key);
 };
+function update() {
+  requestAnimationFrame(update);
+  //drawing the ship over and over in canvas
+  context.drawImage(shipImg, ship.x, ship.y, ship.height, ship.width);
+}
+//drawing movement of the ship
+function moveShip(e) {
+  key = e.key;
+  if (key == `ArrowLeft`) {
+    ship.x -= shipVelocityX;
+  } else if (key == `ArrowRight`) {
+    ship.x += shipVelocityX;
+  }
+}
