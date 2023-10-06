@@ -37,9 +37,9 @@ window.onload = function () {
   // left right movement of ship
   document.onkeydown = function (e) {
     key = e.key;
-    if (key == `ArrowLeft`) {
+    if (key == `ArrowLeft` && ship.x - shipVelocityX >= 0) {
       ship.x -= shipVelocityX;
-    } else if (key == `ArrowRight`) {
+    } else if (key == `ArrowRight`&& ship.x + shipVelocityX + shipWidth < board.width) {
       ship.x += shipVelocityX;
     }
   };
