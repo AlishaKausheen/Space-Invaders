@@ -47,6 +47,7 @@ window.onload = function () {
 };
 function update() {
   requestAnimationFrame(update);
+  context.clearRect(0, 0, board.width, board.height);
   //drawing the ship over and over in canvas
   context.drawImage(shipImg, ship.x, ship.y, ship.height, ship.width);
 }
