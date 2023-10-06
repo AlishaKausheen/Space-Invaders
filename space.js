@@ -34,20 +34,19 @@ window.onload = function () {
     context.drawImage(shipImg, ship.x, ship.y, ship.height, ship.width);
   };
   requestAnimationFrame(update);
-  document.addEventListener(`keydown`, moveShip(e));
+  // left right movement of ship
+  document.onkeydown = function (e) {
+    key = e.key;
+    if (key == `ArrowLeft`) {
+      ship.x -= shipVelocityX;
+    } else if (key == `ArrowRight`) {
+      ship.x += shipVelocityX;
+    }
+  };
   //console.log(e.key);
 };
 function update() {
   requestAnimationFrame(update);
   //drawing the ship over and over in canvas
   context.drawImage(shipImg, ship.x, ship.y, ship.height, ship.width);
-}
-//drawing movement of the ship
-function moveShip(e) {
-  key = e.key;
-  if (key == `ArrowLeft`) {
-    ship.x -= shipVelocityX;
-  } else if (key == `ArrowRight`) {
-    ship.x += shipVelocityX;
-  }
 }
