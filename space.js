@@ -32,6 +32,7 @@ let alienImg;
 let alienRows = 2;
 let alienColumns = 3;
 let alienCount = 0; //number of aliens on the screen
+let alienVelocityX = 1; //alien moving speed
 
 window.onload = function () {
   board = document.getElementById(`board`);
@@ -67,6 +68,7 @@ window.onload = function () {
 function update() {
   requestAnimationFrame(update);
   context.clearRect(0, 0, board.width, board.height);
+
   //drawing the ship over and over in canvas
   context.drawImage(shipImg, ship.x, ship.y, ship.height, ship.width);
 
@@ -74,6 +76,8 @@ function update() {
   for (let i = 0; i < alienArray.length; i++) {
     let alien = alienArray[i];
     if (alien.alive) {
+      //move aliens horizontally
+      alien.x += alienVelocityX;
       context.drawImage(alienImg, alien.x, alien.y, alien.height, alien.width);
     }
   }
