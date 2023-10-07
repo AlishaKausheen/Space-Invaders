@@ -3,7 +3,7 @@ let rows = 16;
 let columns = 16;
 let board;
 let boardWidth = tileSize * columns; //width depends on column
-let boardHeight = tileSize * rows; // height depends on rows
+let boardHeight = tileSize * rows; //height depends on rows
 let context;
 
 //ship
@@ -21,6 +21,7 @@ let ship = {
   width: shipWidth,
   height: shipHeight,
 };
+
 //alien
 let alienArray = [];
 let alienWidth = tileSize * 2;
@@ -113,6 +114,13 @@ function update() {
     bullet.y += bulletVelocityY;
     context.fillStyle = "white";
     context.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
+  }
+  //clear bullet
+  while (
+    (bulletArray.length > 0 && bulletArray[0].used) ||
+    bulletArray[0].y < 0
+  ) {
+    bulletArray.shift(); //removes first element of the array
   }
 }
 function createAlien() {
