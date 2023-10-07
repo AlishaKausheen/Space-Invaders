@@ -34,6 +34,10 @@ let alienColumns = 3;
 let alienCount = 0; //number of aliens on the screen
 let alienVelocityX = 1; //alien moving speed
 
+//bullet
+let bulletArray = [];
+let bulletVelocityY = -10; // to move down velocity +ve and to move up its -ve
+
 window.onload = function () {
   board = document.getElementById(`board`);
   board.width = boardWidth;
@@ -63,7 +67,19 @@ window.onload = function () {
       ship.x += shipVelocityX;
     }
   };
-  //console.log(e.key);
+  document.onkeyup = function (e) {
+    key = e.key;
+    if (key == `Enter`) {
+      let bullet = {
+        x: ship.x + ((shipWidth + tileSize) * 15) / 32,
+        y: ship.y,
+        width: tileSize / 8,
+        height: tileSize / 2,
+        used: false,
+      };
+      bulletArray.push(bullet);
+    }
+  };
 };
 function update() {
   requestAnimationFrame(update);
@@ -90,6 +106,13 @@ function update() {
       }
       context.drawImage(alienImg, alien.x, alien.y, alien.height, alien.width);
     }
+  }
+  //bullets draw
+  for (let i = 0; i < bulletArray.length; i++) {
+    let bullet = bulletArray[i];
+    bullet.y += bulletVelocityY;
+    context.fillStyle = "white";
+    context.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
   }
 }
 function createAlien() {
