@@ -81,6 +81,10 @@ function update() {
       //alien touches the border
       if (alien.x + alien.width >= board.width || alien.x + alien.width <= 0) {
         alienVelocityX *= -1;
+        //alien moving down the row
+        for (let j = 0; j < alienArray.length; j++) {
+          alienArray[j].y += alienHeight;
+        }
       }
       context.drawImage(alienImg, alien.x, alien.y, alien.height, alien.width);
     }
