@@ -80,6 +80,7 @@ window.onload = function () {
       };
       bulletArray.push(bullet);
     }
+    //  bulletArray.push(bullet);
   };
 };
 function update() {
@@ -114,10 +115,22 @@ function update() {
     bullet.y += bulletVelocityY;
     context.fillStyle = "white";
     context.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
+    //bullet collision with alliens
+    for (j = 0; j < alienArray.length; j++) {
+      let alien = alienArray[j];
+      if (!bullet.used && alien.alive && detectCollision(bullet, alien)) {
+        bullet.used = true;
+        alien.alive = false;
+        alienCount--;
+      }
+    }
   }
+  // console.log(bulletArray[0].y);
+  // let bullet = bulletArray[0];
   //clear bullet
   while (
     (bulletArray.length > 0 && bulletArray[0].used) ||
+    //bulletArray[0].y < 0
     bulletArray[0].y < 0
   ) {
     bulletArray.shift(); //removes first element of the array
@@ -141,9 +154,9 @@ function createAlien() {
 }
 function detectCollision(a, b) {
   return (
-    a.x < b.y + b.width && //a's top left corner doesn't reach b's top right corner
-    a.x + a.width > b.x && //a's top right corner passes b's top left corner
-    a.y < b.y + b.height && //a's top left corner doesnt reach bottom left corner
-    a.y + a.height > b.y
+    a.x <= b.y + b.width && //a's top left corner doesn't reach b's top right corner
+    a.x + a.width >= b.x && //a's top right corner passes b's top left corner
+    a.y <= b.y + b.height && //a's top left corner doesnt reach bottom left corner
+    a.y + a.height >= b.y
   ); //a's bottom left corner passes b's top left corner
 }
