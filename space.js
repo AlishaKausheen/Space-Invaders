@@ -78,6 +78,10 @@ function update() {
     if (alien.alive) {
       //move aliens horizontally
       alien.x += alienVelocityX;
+      //alien touches the border
+      if (alien.x + alien.width >= board.width || alien.x + alien.width <= 0) {
+        alienVelocityX *= -1;
+      }
       context.drawImage(alienImg, alien.x, alien.y, alien.height, alien.width);
     }
   }
